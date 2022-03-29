@@ -19,7 +19,7 @@ const ToDo = ({ finished, text, id }) => {
 
       {editing ? (
         <>
-          <input type="text" name="todo-text" value={text} autoFocus/>
+          <input className="edit-text" type="text" name="todo-text" value={text} autoFocus/>
           <input type="button" value="Save" />
           <input type="button" value="Cancel" />
         </>

@@ -1,4 +1,4 @@
-import ToDo from "./todo";
-import ToDoList from "./todolist";
+import ToDo from "./ToDo";
+import ToDoList from "./ToDoList";
 
 export { ToDo, ToDoList };
