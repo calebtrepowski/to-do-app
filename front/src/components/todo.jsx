@@ -1,13 +1,13 @@
 /*
 todo = {
-  finished: false,
+  completed: false,
   id: 5,
   text: "Buy groceries",
 }; */
 
 import { useState } from "react";
 
-const ToDo = ({ finished, text, id }) => {
+const ToDo = ({ completed, text, id }) => {
   const [editing, setEditing] = useState(false);
   const editTextValue = (e) => {
     setEditing(true);
@@ -15,7 +15,7 @@ const ToDo = ({ finished, text, id }) => {
 
   return (
     <div className="todo">
-      <input type="checkbox" name="completed" checked={finished} />
+      <input type="checkbox" name="completed" checked={completed} />
 
       {editing ? (
         <>
