@@ -18,6 +18,18 @@ code {
   align-items: center;
 }
 
+.add-new-todo {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+}
+
+.add-new-todo-folder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .todolist {
   display: flex;
   flex-direction: column;

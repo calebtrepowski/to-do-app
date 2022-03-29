@@ -1,22 +1,23 @@
 import { useState, createContext } from "react";
+// import { useFetchData } from "../hooks";
 
-const mock_todos = [
-  {
-    id: 3,
-    completed: true,
-    text: "Write to candidates",
-  },
-  {
-    id: 4,
-    completed: false,
-    text: "Prepare weekly report",
-  },
-  {
-    completed: false,
-    id: 5,
-    text: "Buy groceries",
-  },
-];
+// const mock_todos = [
+//   {
+//     id: 3,
+//     completed: true,
+//     text: "Write to candidates",
+//   },
+//   {
+//     id: 4,
+//     completed: false,
+//     text: "Prepare weekly report",
+//   },
+//   {
+//     completed: false,
+//     id: 5,
+//     text: "Buy groceries",
+//   },
+// ];
 const mock_todos_folder = [
   {
     id: 1234,
@@ -61,6 +62,11 @@ export const ToDoContext = createContext();
 
 export const ToDoProvider = (props) => {
   const [todos, setTodos] = useState(mock_todos_folder);
+  // const { data, status } = useFetchData();
+
+  // useEffect(() => {
+  //   setTodos(data);
+  // });
 
   return (
     <ToDoContext.Provider value={[todos, setTodos]}>

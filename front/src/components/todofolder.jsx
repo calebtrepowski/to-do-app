@@ -3,7 +3,8 @@ import ToDo from "./todo";
 
 const ToDoFolder = ({ id, name, items }) => {
   const [amountCompleted, setAmountCompleted] = useState(0);
-  const calculate_completed = () => {
+
+  useEffect(() => {
     let amount = 0;
     items.forEach((v) => {
       if (v.completed) {
@@ -11,10 +12,6 @@ const ToDoFolder = ({ id, name, items }) => {
       }
     });
     setAmountCompleted(amount);
-  };
-
-  useEffect(() => {
-    calculate_completed();
   }, [items]);
   return (
     <div className="folder">
