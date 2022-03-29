@@ -1,4 +1,5 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
+import { useFetchData } from "../hooks";
 
 const mock_todos = [
   {
@@ -61,6 +62,11 @@ export const ToDoContext = createContext();
 
 export const ToDoProvider = (props) => {
   const [todos, setTodos] = useState(mock_todos_folder);
+  const { data, status } = useFetchData();
+
+  // useEffect(() => {
+  //   setTodos(data);
+  // });
 
   return (
     <ToDoContext.Provider value={[todos, setTodos]}>
