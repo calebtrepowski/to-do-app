@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ToDoContext } from "../providers";
-import ToDo from "./todo";
+import ToDo from "./ToDo";
 
 const ToDoList = () => {
   const [todos, setTodos] = useContext(ToDoContext);
