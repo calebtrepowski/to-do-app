@@ -7,7 +7,7 @@ todo = {
 
 const ToDo = ({ finished, text, id }) => {
   return (
-    <div>
+    <div className="todo">
       <input type="checkbox" name="finished" checked={finished} />
       <p>{text}</p>
       <input type="button" value="Edit" />
