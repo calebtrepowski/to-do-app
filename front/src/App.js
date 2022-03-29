@@ -4,16 +4,16 @@ import { ToDo, ToDoList } from "./components";
 const mock_todos = [
   {
     id: 3,
-    finished: true,
+    completed: true,
     text: "Write to candidates",
   },
   {
     id: 4,
-    finished: false,
+    completed: false,
     text: "Prepare weekly report",
   },
   {
-    finished: false,
+    completed: false,
     id: 5,
     text: "Buy groceries",
   },
