@@ -1,14 +1,15 @@
 import { useContext } from "react";
 import { ToDoContext } from "../providers";
-import ToDo from "./todo";
+import ToDoFolder from "./todofolder";
+
 
 const ToDoList = () => {
 //   const [todos, setTodos] = useContext(ToDoContext);
   const [todos] = useContext(ToDoContext);
   return (
     <div className="todolist">
-      {todos.map((todo) => (
-        <ToDo {...todo} key={todo.id}/>
+      {todos.map((folder) => (
+          <ToDoFolder {...folder} key={folder.id}/>
       ))}
     </div>
   );
