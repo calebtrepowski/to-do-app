@@ -20,6 +20,7 @@ const ToDoFolder = ({ id, name, items }) => {
         <p>
           {amountCompleted}/{items.length}
         </p>
+        <button>Delete</button>
       </div>
       {items.map((todo) => (
         <ToDo {...todo} key={todo.id} />
