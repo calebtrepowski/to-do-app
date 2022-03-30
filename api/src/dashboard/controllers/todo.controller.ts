@@ -14,19 +14,19 @@ import { ToDoService } from '../services/todo.service';
 
 @Controller('todo')
 export class ToDoController {
-  constructor(private dashboardService: ToDoService) {}
+  constructor(private toDoService: ToDoService) {}
   @Post()
   create(@Body() todo: ToDo): Observable<ToDo> {
-    return this.dashboardService.create(todo);
+    return this.toDoService.create(todo);
   }
 
   @Get()
   findAll() {
-    return this.dashboardService.findAll();
+    return this.toDoService.findAll();
   }
   @Get('/fromFolder/:folderId')
-  find(@Param('folderId') folderId: number): Promise<ToDo[]> {
-    return this.dashboardService.find(folderId);
+  find(@Param('folderId') folderId: number): Observable<ToDo[]> {
+    return this.toDoService.find(folderId);
   }
 
   @Put(':id')
@@ -34,11 +34,11 @@ export class ToDoController {
     @Param('id') id: number,
     @Body() todo: ToDo,
   ): Observable<UpdateResult> {
-    return this.dashboardService.update(id, todo);
+    return this.toDoService.update(id, todo);
   }
 
   @Delete(':id')
   delete(@Param('id') id: number): Observable<DeleteResult> {
-    return this.dashboardService.delete(id);
+    return this.toDoService.delete(id);
   }
 }

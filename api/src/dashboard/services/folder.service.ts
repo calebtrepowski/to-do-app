@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { FolderEntity } from '../models/folder.entity';
 import { Folder } from '../models/folder.interface';
+import { ToDoEntity } from '../models/todo.entity';
 
 @Injectable()
 export class FolderService {
@@ -22,26 +23,25 @@ export class FolderService {
   }
 
   findAll(): Observable<FolderEntity[]> {
-    // const folders = await this.folderRepository.query(
-    //   'SELECT * FROM folders LEFT JOIN todos on todos."folderId" = folders.id',
-    // );
-    //   .createQueryBuilder('f')
-    //   .leftJoinAndSelect('f.todos', 't')
-    //   .where('todo_id = f.id')
-    //   .getQuery();
-    //   .leftJoin('f.todos', 't')
-    //   .leftJoinAndSelect('folder.todos', 'folder')
-    //   .getMany();
-    // console.log(folders);
-    // return null;
-    return from(this.folderRepository.find());
+    return from(
+      this.folderRepository.find({
+        order: {
+          id: 'DESC',
+        },
+      }),
+    );
   }
 
-  update(id: string, folder: Folder): Observable<UpdateResult> {
+  update(id: number, folder: Folder): Observable<UpdateResult> {
     return from(this.folderRepository.update(id, folder));
   }
 
-  delete(id: string): Observable<DeleteResult> {
-    return from(this.folderRepository.delete(id));
+  async delete(id: number): Promise<DeleteResult> {
+    await createQueryBuilder()
+      .delete()
+      .from(ToDoEntity)
+      .where('folderId = :id', { id })
+      .execute();
+    return this.folderRepository.delete(id);
   }
 }

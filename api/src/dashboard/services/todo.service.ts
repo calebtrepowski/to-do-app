@@ -20,15 +20,26 @@ export class ToDoService {
   }
 
   findAll(): Observable<ToDo[]> {
-    return from(this.ToDoRepository.find());
+    return from(
+      this.ToDoRepository.find({
+        order: {
+          id: 'DESC',
+        },
+      }),
+    );
   }
 
-  async find(folderId: number): Promise<ToDo[]> {
-    const todos = await this.ToDoRepository.createQueryBuilder('todo')
-      .where('todo.folderId = :folderId', { folderId: folderId })
-      .getMany();
-
-    return todos;
+  find(folderId: number): Observable<ToDo[]> {
+    return from(
+      this.ToDoRepository.find({
+        where: {
+          folder: folderId,
+        },
+        order: {
+          id: 'DESC',
+        },
+      }),
+    );
   }
 
   update(id: number, toDo: ToDo): Observable<UpdateResult> {

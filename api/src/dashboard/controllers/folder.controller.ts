@@ -28,14 +28,14 @@ export class FolderController {
 
   @Put(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() folder: Folder,
   ): Observable<UpdateResult> {
     return this.folderService.update(id, folder);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string): Observable<DeleteResult> {
+  delete(@Param('id') id: number): Promise<DeleteResult> {
     return this.folderService.delete(id);
   }
 }
