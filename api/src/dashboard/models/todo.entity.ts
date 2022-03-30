@@ -1,13 +1,25 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { FolderEntity } from './folder.entity';
+import { Folder } from './folder.interface';
 
-@Entity('dashboard_todo')
+@Entity('todos')
 export class ToDoEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column()
   body: string;
 
   @Column({ type: 'boolean', default: () => 'false' })
   completed: boolean;
+
+  @ManyToOne(() => FolderEntity, (folder: Folder) => folder.todos)
+  @JoinColumn({ name: 'folderId' })
+  folder: Folder;
 }
