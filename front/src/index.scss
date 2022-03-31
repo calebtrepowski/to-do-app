@@ -1,3 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap");
+
+/* basic css reset */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+$background-color: #f8f0df;
+$accent-color: #79b4b7;
+$accent-color-hover: hsl(183, 30%, 40%);
+$danger-color: #d885a3;
+$dark-color: #9d9d9d;
+$light-color: #fefbf3;
+$text-contrast-with-light-color: #3d3d3d;
+
+:root {
+  --bakground-color: #f8f0df;
+  --accent-color: #79b4b7;
+  --accent-color-hover: hsl(183, 30%, 40%);
+  --danger-color: #d885a3;
+  --dark-color: #9d9d9d;
+  --light-color: #fefbf3;
+  --text-contrast-with-light-color: #3d3d3d;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,6 +35,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bakground-color);
 }
 
 code {
@@ -12,22 +43,113 @@ code {
     monospace;
 }
 
+#root {
+  display: flex;
+  justify-content: center;
+}
+
 .App {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  .header-title {
+    font-family: "Source Sans Pro", sans-serif;
+  }
+
+  .add-new-item {
+    --add-new-item-padding-horizontal: 3em;
+
+    --fields-padding-vertical: 0.45em;
+    --fields-padding-horizontal: 0.8em;
+    --fields-margin-bottom: 0.5em;
+    --fields-container-padding-right: 1em;
+    --fields-border-radius: 5px;
+    --fields-font-size: 1.2em;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+    padding-left: var(--add-new-item-padding-horizontal);
+    padding-right: var(--add-new-item-padding-horizontal);
+
+    .fields {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      padding-right: var(--fields-container-padding-right);
+      width: 100%;
+
+      .new-item-field {
+        width: auto;
+        padding-top: var(--fields-padding-vertical);
+        padding-bottom: var(--fields-padding-vertical);
+        box-shadow: 1px 4px 20px 0px rgba(157, 157, 157, 0.2);
+        border: 0;
+        padding-left: var(--fields-padding-horizontal);
+        padding-right: var(--fields-padding-horizontal);
+        margin-bottom: var(--fields-margin-bottom);
+        border-radius: var(--fields-border-radius);
+        font-family: "Source Sans Pro", sans-serif;
+        font-size: var(--fields-font-size);
+        box-sizing: border-box;
+        color: var(--text-contrast-with-light-color);
+        &:focus {
+          outline: none !important;
+          border: 2px solid var(--dark-color);
+        }
+      }
+    }
+    .add-item-btn-container {
+      --btn-max-width: 5em;
+      --btn-line-height: 0.2rem;
+      --btn-border-radius: 5px;
+      --btn-font-size: 1.8em;
+      --btn-padding-vertical: 0.8em;
+      --btn-padding-horizontal: 0.5em;
+
+      align-self: center;
+      max-width: var(--btn-max-width);
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      .add-item-btn {
+        background-color: var(--accent-color);
+        color: var(--light-color);
+        border: 0;
+        box-shadow: 1px 4px 20px 0px rgba(157, 157, 157, 0.2);
+        border-radius: var(--btn-border-radius);
+        font-size: var(--btn-font-size);
+        padding-top: var(--btn-padding-vertical);
+        padding-bottom: var(--btn-padding-vertical);
+        padding-left: var(--btn-padding-horizontal);
+        padding-right: var(--btn-padding-horizontal);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i {
+          padding: 0;
+          line-height: var(--btn-line-height);
+        }
+
+        &:hover {
+          background-color: $accent-color-hover;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
 
-.add-new-todo {
-  display: flex;
-  flex-direction: column;
-  padding: 0.5em;
-}
-
-.add-new-todo-folder {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.change-adding {
+  --margin-top: 0.25em;
+  margin-top: var(--margin-top);
+  &:hover {
+     cursor: pointer;
+  }
 }
 
 .todolist {
@@ -53,5 +175,37 @@ code {
     margin-bottom: 16px;
     font-family: inherit;
     font-size: inherit;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    // --bakground-color: red;
+  }
+  .App {
+    max-width: 768px;
+    .add-new-item {
+      --add-new-item-padding-horizontal: 0;
+
+      height: 2.5em;
+      .fields {
+        --fields-padding-vertical: 0.3em;
+
+        // height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        .new-item-field {
+          width: 49%;
+          height: 100%;
+        }
+      }
+      .add-item-btn-container {
+        width: 3.5em;
+        height: 2.5em;
+        .add-item-btn {
+          padding: 0;
+        }
+      }
+    }
   }
 }
