@@ -1,3 +1,3 @@
 import useFetchData from "./useFetchData";
-
-export { useFetchData };
+import useInit from "./useInit";
+export { useFetchData, useInit };
