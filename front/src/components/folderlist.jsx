@@ -3,14 +3,7 @@ import { ToDoContext } from "../providers";
 import FolderItem from "./folderitem";
 import { useFetch } from "../hooks";
 
-const FolderList = () => {
-  const isComponentMounted = useRef(true);
-  const {
-    data: folders,
-    loading,
-    error,
-  } = useFetch("/folder", isComponentMounted, []);
-
+const FolderList = ({ folders, loading, error }) => {
   return (
     <div className="folder-list">
       {loading && <div>Loading data...</div>}

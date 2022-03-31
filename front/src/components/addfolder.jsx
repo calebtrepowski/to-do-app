@@ -1,10 +1,7 @@
-import { useState, useContext } from "react";
-import { ToDoContext } from "../providers";
+import { useState } from "react";
 import axios from "axios";
 
-const AddFolder = () => {
-  const [, , , , getFolders] = useContext(ToDoContext);
-
+const AddFolder = ({ getFolders }) => {
   const [newFolderName, setNewFolderName] = useState("");
 
   const handleChange = (event) => {

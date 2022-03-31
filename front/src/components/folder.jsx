@@ -1,50 +1,62 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
-import { ToDoContext } from "../providers";
 import ErrorPage from "./errorpage";
 import ToDo from "./todo";
-import { useInit } from "../hooks";
-import { useFetch } from "../hooks";
 
 const Folder = () => {
   let { id } = useParams();
   id = parseInt(id, 10);
 
-  const { data, loading, error } = useFetch(`/todo/fromFolder/${id}`);
-  if (error) {
-    console.log(error);
-  }
+  const isMounted = useRef(true);
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const [, , folders] = useContext(ToDoContext);
+  const name = "name";
 
-  const getTodos = async () => {
-    try {
-      const response = await axios.get(`/todo/fromFolder/${id}`);
-      setTodos(response.data);
-    } catch (error) {
-      console.error(error);
+  const getData = async () => {
+    if (isMounted.current) {
+      (async () => {
+        try {
+          const response = await axios.get(`/todo/fromFolder/${id}`);
+          setData(response.data);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setLoading(false);
+        }
+      })();
     }
+    return () => {
+      isMounted.current = false;
+    };
   };
 
-  const [todos, setTodos] = useState([]);
-
-  const [resetInit] = useInit(getTodos);
-
-  const { name } =
-    folders !== undefined
-      ? folders.find((o) => o.id === id)
-      : { name: undefined };
+  useEffect(() => {
+    if (isMounted.current) {
+      (async () => {
+        try {
+          const response = await axios.get(`/todo/fromFolder/${id}`);
+          setData(response.data);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    }
+    return () => {
+      isMounted.current = false;
+    };
+  }, [isMounted]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // resetInit();
   }, []);
-  // }, [resetInit]);
 
   return (
     <>
-    {loading && <div>Loading...</div>}
       {name !== undefined && (
         <div className="App folder-page">
           <div className="back-to-main">
@@ -59,19 +71,27 @@ const Folder = () => {
             </button>
           </div>
           <FolderTitle name={name} id={id} />
-          <AddTodo folderId={id} getTodos={getTodos} />
+          <AddTodo folderId={id} getTodos={getData} />
           <div className="todo-list">
-            {todos.length === 0 && (
+            {loading && <div>Loading data...</div>}
+
+            {!loading && data.length === 0 && (
               <>
                 <p>There are no TODOs here. Create one</p>
               </>
             )}
-            {todos.length !== 0 && (
+            {!loading && data.length !== 0 && (
               <>
-                {todos.map((todo) => (
+                {data.map((todo) => (
                   <ToDo {...todo} key={todo.id} />
                 ))}
               </>
+            )}
+            {error && (
+              <div>
+                There was an error, here are the details
+                <br /> {error}
+              </div>
             )}
           </div>
         </div>
