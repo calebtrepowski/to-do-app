@@ -3,7 +3,7 @@ import { ToDoContext } from "../providers";
 import axios from "axios";
 
 const AddFolder = () => {
-  const [, , folders, , getFolders] = useContext(ToDoContext);
+  const [, , , , getFolders] = useContext(ToDoContext);
 
   const [newFolderName, setNewFolderName] = useState("");
 
