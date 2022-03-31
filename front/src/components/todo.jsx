@@ -20,6 +20,10 @@ const ToDo = ({ completed, body, id }) => {
     setCompleted(e.target.checked);
   };
 
+  const handleChange = (e) => {
+    setnewBody(e.target.value);
+  };
+
   return (
     <div className="todo">
       <input
@@ -37,6 +41,7 @@ const ToDo = ({ completed, body, id }) => {
             name="todo-text"
             value={newBody}
             autoFocus
+            onChange={handleChange}
           />
           <input type="button" value="Save" />
           <input type="button" value="Cancel" />
