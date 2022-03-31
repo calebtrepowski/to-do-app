@@ -18,11 +18,16 @@ export class FolderService {
     private readonly folderRepository: Repository<FolderEntity>,
   ) {}
 
-  create(folder: Folder): Observable<Folder> {
-    if (folder?.name === "") {
-      folder.name = "Untitled Folder"
+  async create(folder: Folder): Promise<Folder> {
+    if (folder?.name === '') {
+      const prevCount = await createQueryBuilder()
+        .select()
+        .from(FolderEntity, 'f')
+        .where("f.name LIKE 'Untitled Folder%'")
+        .getCount();
+      folder.name = `Untitled Folder (${prevCount + 1})`;
     }
-    return from(this.folderRepository.save(folder));
+    return this.folderRepository.save(folder);
   }
 
   findAll(): Observable<FolderEntity[]> {

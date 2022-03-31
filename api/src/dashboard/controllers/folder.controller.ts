@@ -17,7 +17,7 @@ export class FolderController {
   constructor(private folderService: FolderService) {}
 
   @Post()
-  create(@Body() folder: Folder): Observable<Folder> {
+  create(@Body() folder: Folder): Promise<Folder> {
     return this.folderService.create(folder);
   }
 
