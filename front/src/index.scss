@@ -148,8 +148,22 @@ code {
   --margin-top: 0.25em;
   margin-top: var(--margin-top);
   &:hover {
-     cursor: pointer;
+    cursor: pointer;
   }
+}
+
+.folder-list {
+  --min-height: 50vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  // background-color: red;
+  width: 100%;
+  height: 100%;
+  min-height: var(--min-height);
 }
 
 .todolist {
@@ -179,9 +193,6 @@ code {
 }
 
 @media screen and (min-width: 768px) {
-  :root {
-    // --bakground-color: red;
-  }
   .App {
     max-width: 768px;
     .add-new-item {
@@ -197,6 +208,10 @@ code {
         .new-item-field {
           width: 49%;
           height: 100%;
+        }
+
+        #new-folder-text {
+          width: 100%;
         }
       }
       .add-item-btn-container {
