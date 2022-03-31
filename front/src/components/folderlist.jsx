@@ -1,7 +1,4 @@
-import { useContext, useRef } from "react";
-import { ToDoContext } from "../providers";
 import FolderItem from "./folderitem";
-import { useFetch } from "../hooks";
 
 const FolderList = ({ folders, loading, error }) => {
   return (

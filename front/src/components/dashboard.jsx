@@ -1,27 +1,12 @@
 import { useRef, useState, useEffect } from "react";
 import AddFolder from "./addfolder";
 import FolderList from "./folderlist";
-import { useFetch } from "../hooks";
 import axios from "axios";
 const Dashboard = () => {
   const isMounted = useRef(true);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  // const [rerender, setRerender] = useState(false);
-  // const {
-  //   data: folders,
-  //   loading,
-  //   error,
-  // } = useFetch("/folder", isComponentMounted, []);
-
-  // const refetch = () => {
-  //   if (isComponentMounted.current) {
-  //     console.log("entro al if");
-  //     setRerender((prev) => !prev);
-  //   }
-  // };
 
   const getData = async () => {
     if (isMounted.current) {

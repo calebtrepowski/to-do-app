@@ -49,7 +49,7 @@ const Folder = () => {
     return () => {
       isMounted.current = false;
     };
-  }, [isMounted]);
+  }, [isMounted, id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
