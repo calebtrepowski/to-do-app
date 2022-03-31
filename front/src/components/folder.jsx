@@ -1,19 +1,32 @@
 import { useContext, useState, useEffect } from "react";
-import { ToDoContext } from "../providers";
+import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { ToDoContext } from "../providers";
 import ErrorPage from "./errorpage";
+import ToDo from "./todo";
 
 const Folder = () => {
   let { id } = useParams();
   id = parseInt(id, 10);
   const [, , folders] = useContext(ToDoContext);
+  const [todos, setTodos] = useState([]);
   const { name } =
     folders !== undefined
       ? folders.find((o) => o.id === id)
       : { name: undefined };
 
+  const getTodos = async () => {
+    try {
+      const response = await axios.get(`/todo/fromFolder/${id}`);
+      setTodos(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    getTodos();
   }, []);
 
   return (
@@ -32,6 +45,21 @@ const Folder = () => {
             </button>
           </div>
           <FolderTitle name={name} id={id} />
+          <AddTodo folderId={id} getTodos={getTodos} />
+          <div className="todo-list">
+            {todos.length === 0 && (
+              <>
+                <p>There are no TODOs here. Create one</p>
+              </>
+            )}
+            {todos.length !== 0 && (
+              <>
+                {todos.map((todo) => (
+                  <ToDo {...todo} key={todo.id} />
+                ))}
+              </>
+            )}
+          </div>
         </div>
       )}
       {name === undefined && <ErrorPage />}
@@ -66,6 +94,7 @@ const FolderTitle = ({ name, id }) => {
     setIsEditing(false);
     // console.log(newName);
   };
+
   return (
     <div className="folder-title" onBlur={handleBlur}>
       {!isEditing && (
@@ -95,6 +124,60 @@ const FolderTitle = ({ name, id }) => {
         </div>
       )}
     </div>
+  );
+};
+
+const AddTodo = ({ folderId, getTodos }) => {
+  const [newTodoBody, setNewTodoBody] = useState("");
+  const handleChange = (e) => {
+    setNewTodoBody(e.target.value);
+  };
+
+  const addTodo = async () => {
+    const requestBody = {
+      body: newTodoBody,
+      completed: false,
+      folder: folderId,
+    };
+    try {
+      const response = await axios.post("/todo", requestBody);
+      console.log(response);
+      setNewTodoBody("");
+      getTodos();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addTodo();
+  };
+  return (
+    <form action="#" className="add-todo">
+      <div className="fields">
+        <input
+          type="text"
+          value={newTodoBody}
+          onChange={handleChange}
+          name="newFolderName"
+          id="new-todo-text"
+          placeholder="New TODO"
+          className="new-todo-text"
+          autoComplete="off"
+          autoFocus
+          required
+        />
+      </div>
+      <div className="add-item-btn-container">
+        <button
+          className="add-item-btn"
+          title="Add TODO"
+          onClick={handleSubmit}
+        >
+          <i className="fa fa-plus"></i>
+        </button>
+      </div>
+    </form>
   );
 };
 

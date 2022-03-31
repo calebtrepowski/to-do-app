@@ -346,6 +346,87 @@ h2 {
       }
     }
   }
+  .add-todo {
+    --fields-container-padding-right: 1em;
+    --fields-padding-vertical: 0.45em;
+    --fields-padding-horizontal: 0.8em;
+    --fields-border-radius: 5px;
+    --fields-font-size: 1.2em;
+
+    width: 100%;
+    padding-left: var(--padding-horizontal);
+    padding-right: var(--padding-horizontal);
+    margin-top: var(--padding-vertical);
+    display: flex;
+    justify-content: space-between;
+    .fields {
+      width: 100%;
+      padding-right: var(--fields-container-padding-right);
+      input {
+        width: 100%;
+        padding-top: var(--fields-padding-vertical);
+        padding-bottom: var(--fields-padding-vertical);
+        box-shadow: 1px 4px 20px 0px rgba(157, 157, 157, 0.2);
+        border: 0;
+        padding-left: var(--fields-padding-horizontal);
+        padding-right: var(--fields-padding-horizontal);
+        border-radius: var(--fields-border-radius);
+        font-family: "Source Sans Pro", sans-serif;
+        border-radius: var(--fields-border-radius);
+        font-family: "Source Sans Pro", sans-serif;
+        font-size: var(--fields-font-size);
+        box-sizing: border-box;
+        color: var(--text-contrast-with-light-color);
+        &:focus {
+          outline: none !important;
+          border: 2px solid var(--dark-color);
+        }
+      }
+    }
+    .add-item-btn-container {
+      --btn-max-width: 5em;
+      --btn-line-height: 0.2rem;
+      --btn-border-radius: 5px;
+      --btn-font-size: 1.5em;
+      --btn-padding-vertical: 0.8em;
+      --btn-padding-horizontal: 0.5em;
+
+      align-self: center;
+      max-width: var(--btn-max-width);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      .add-item-btn {
+        background-color: var(--accent-color);
+        color: var(--light-color);
+        border: 0;
+        box-shadow: 1px 4px 20px 0px rgba(157, 157, 157, 0.2);
+        border-radius: var(--btn-border-radius);
+        font-size: var(--btn-font-size);
+        padding-top: var(--btn-padding-vertical);
+        padding-bottom: var(--btn-padding-vertical);
+        padding-left: var(--btn-padding-horizontal);
+        padding-right: var(--btn-padding-horizontal);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition: all ease 0.2s;
+
+        i {
+          padding: 0;
+          line-height: var(--btn-line-height);
+        }
+
+        &:hover {
+          background-color: var(--accent-color-hover);
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
 
 .todolist {
