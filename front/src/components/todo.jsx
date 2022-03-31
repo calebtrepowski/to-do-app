@@ -48,12 +48,18 @@ const ToDo = ({ completed, body, id }) => {
         </>
       ) : (
         <>
-          <p>{body}</p>{" "}
-          <input type="button" value="Edit" onClick={editTextValue} />
+          <p>
+            {`${body}  `}
+            <i
+              className="fa fa-pencil"
+              aria-hidden="true"
+              // onClick={toggleIsEditing}
+            ></i>
+          </p>
         </>
       )}
 
-      <input type="button" value="Delete" />
+      <button className="delete-todo"><i className="fa fa-trash" aria-hidden="true"></i></button>
     </div>
   );
 };

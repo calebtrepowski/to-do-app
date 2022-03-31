@@ -429,24 +429,65 @@ h2 {
   }
 }
 
-.todolist {
+.todo-list {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-}
-
-.folder-header {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: space-between;
+  width: 100%;
+  margin-top: 2em;
 }
 
 .todo {
+  --icon-font-size: 0.8em;
+  --icon-height: 90%;
+
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--light-color);
+  border: 0.6px solid var(--dark-color);
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  p {
+    text-align: left;
+    width: 100%;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 1.2em;
+    i {
+      height: var(--icon-height);
+      font-size: var(--icon-font-size);
+      vertical-align: middle;
+      margin-left: 0.5em;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .delete-todo {
+    background-color: var(--danger-color);
+
+    width: 3em;
+    height: 3em;
+    border: 0;
+    box-shadow: 1px 4px 20px 0px rgba(157, 157, 157, 0.2);
+    border-radius: 5px;
+
+    &:hover {
+      background-color: var(--danger-color-hover);
+      transition: all ease 0.2s;
+      cursor: pointer;
+      i {
+        // color: var(--light-color);
+      }
+    }
+    i {
+      color: var(--text-contrast-with-danger-color);
+      font-size: 1.5em;
+    }
+  }
   .edit-text {
     margin-top: 16px;
     margin-bottom: 16px;
