@@ -1,8 +1,19 @@
 import ToDo from "./todo";
-import ToDoList from "./todolist";
 import ToDoFolder from "./todofolder";
 import AddFolder from "./addfolder";
 import FolderList from "./folderlist";
+import FolderItem from "./folderitem";
+import ErrorPage from "./errorpage";
 import Folder from "./folder";
+import Dashboard from "./dashboard";
 
-export { ToDo, ToDoList, ToDoFolder, AddFolder, FolderList, Folder };
+export {
+  ToDo,
+  ToDoFolder,
+  AddFolder,
+  FolderList,
+  FolderItem,
+  ErrorPage,
+  Folder,
+  Dashboard,
+};

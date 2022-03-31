@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ToDoContext } from "../providers";
-import Folder from "./folder";
+import FolderItem from "./folderitem";
 
 const FolderList = () => {
   const [, , folders] = useContext(ToDoContext);
@@ -10,7 +10,7 @@ const FolderList = () => {
       {folders.length > 0 ? (
         <>
           {folders.map((folder) => (
-            <Folder key={folder.id} {...folder} />
+            <FolderItem key={folder.id} {...folder} />
           ))}
         </>
       ) : (

@@ -1,15 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import axios from "axios";
+import App from "./App";
+import { ErrorPage, Folder, Dashboard } from "./components";
+import "./index.scss";
 
 axios.defaults.baseURL = process.env.REACT_APP_URL_API;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<Dashboard />} />
+          <Route path="folder/:id" element={<Folder/>}/>
+        </Route>
+        <Route path="/folder/:id" element={<Folder />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,13 +1,10 @@
-import { ToDoList, FolderList, AddFolder } from "./components";
+import { Outlet } from "react-router-dom";
 import { ToDoProvider } from "./providers";
 function App() {
   return (
     <div className="App">
       <ToDoProvider>
-        <h1 className="header-title">TODOs App</h1>
-        <AddFolder />
-        <FolderList />
-        <ToDoList />
+        <Outlet />
       </ToDoProvider>
     </div>
   );
