@@ -23,6 +23,13 @@ const ToDo = ({ completed, body, id }) => {
   const handleChange = (e) => {
     setnewBody(e.target.value);
   };
+  const handleBlur = (e) => {
+    setEditing(false);
+  };
+
+  const handleSubmit = () => {
+    setEditing(false);
+  };
 
   return (
     <div className="todo">
@@ -42,9 +49,11 @@ const ToDo = ({ completed, body, id }) => {
             value={newBody}
             autoFocus
             onChange={handleChange}
+            onBlur={handleBlur}
           />
-          <input type="button" value="Save" />
-          <input type="button" value="Cancel" />
+          <button className="edit-todo-btn" onClick={handleSubmit} title="Save">
+            <i className="fa fa-floppy-o" aria-hidden="true"></i>
+          </button>
         </>
       ) : (
         <>
@@ -53,13 +62,15 @@ const ToDo = ({ completed, body, id }) => {
             <i
               className="fa fa-pencil"
               aria-hidden="true"
-              // onClick={toggleIsEditing}
+              onClick={editTextValue}
             ></i>
           </p>
         </>
       )}
 
-      <button className="delete-todo"><i className="fa fa-trash" aria-hidden="true"></i></button>
+      <button className="delete-todo">
+        <i className="fa fa-trash" aria-hidden="true"></i>
+      </button>
     </div>
   );
 };

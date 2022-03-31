@@ -447,6 +447,8 @@ h2 {
   justify-content: space-between;
   background-color: var(--light-color);
   border: 0.6px solid var(--dark-color);
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
   padding-left: 1.5em;
   padding-right: 1.5em;
   p {
@@ -456,6 +458,8 @@ h2 {
     padding-right: 1.5em;
     font-family: "Source Sans Pro", sans-serif;
     font-size: 1.2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     i {
       height: var(--icon-height);
       font-size: var(--icon-font-size);
@@ -466,7 +470,12 @@ h2 {
       }
     }
   }
+  --btn-padding-vertical: 0.8em;
+  --btn-padding-horizontal: 0.5em;
   .delete-todo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--danger-color);
 
     width: 3em;
@@ -474,6 +483,9 @@ h2 {
     border: 0;
     box-shadow: 1px 4px 20px 0px rgba(157, 157, 157, 0.2);
     border-radius: 5px;
+
+    padding-left: 1.1em;
+    padding-right: 1.1em;
 
     &:hover {
       background-color: var(--danger-color-hover);
@@ -489,10 +501,49 @@ h2 {
     }
   }
   .edit-text {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    font-family: inherit;
-    font-size: inherit;
+    text-align: left;
+    width: 100%;
+    margin-left: 1.5em;
+    margin-right: 1.2em;
+    padding-right: 1.5em;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 1.2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  --btn-max-width: 5em;
+  --btn-line-height: 0.2rem;
+  --btn-border-radius: 5px;
+  --btn-font-size: 1.5em;
+  --btn-padding-vertical: 0.8em;
+  --btn-padding-horizontal: 0.5em;
+  .edit-todo-btn {
+    background-color: var(--accent-color);
+    color: var(--light-color);
+    border: 0;
+    box-shadow: 1px 4px 20px 0px rgba(157, 157, 157, 0.2);
+    border-radius: var(--btn-border-radius);
+    font-size: var(--btn-font-size);
+    padding-top: var(--btn-padding-vertical);
+    padding-bottom: var(--btn-padding-vertical);
+    padding-left: var(--btn-padding-horizontal);
+    padding-right: var(--btn-padding-horizontal);
+    margin-right: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all ease 0.2s;
+    i {
+      padding: 0;
+      line-height: var(--btn-line-height);
+      font-size: 0.9em;
+    }
+
+    &:hover {
+      background-color: var(--accent-color-hover);
+      cursor: pointer;
+    }
   }
 }
 
