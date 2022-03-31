@@ -40,7 +40,7 @@ const AddFolder = () => {
             name="newFolderName"
             id="new-folder-text"
             placeholder="New folder name"
-            className="new-item-text new-item-field"
+            className="new-item-field"
             autoComplete="off"
             autoFocus
             required
