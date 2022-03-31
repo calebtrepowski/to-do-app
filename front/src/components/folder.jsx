@@ -4,16 +4,13 @@ import { useParams, Link } from "react-router-dom";
 import { ToDoContext } from "../providers";
 import ErrorPage from "./errorpage";
 import ToDo from "./todo";
+import { useInit } from "../hooks";
 
 const Folder = () => {
   let { id } = useParams();
   id = parseInt(id, 10);
+
   const [, , folders] = useContext(ToDoContext);
-  const [todos, setTodos] = useState([]);
-  const { name } =
-    folders !== undefined
-      ? folders.find((o) => o.id === id)
-      : { name: undefined };
 
   const getTodos = async () => {
     try {
@@ -24,10 +21,20 @@ const Folder = () => {
     }
   };
 
+  const [todos, setTodos] = useState([]);
+
+  const [resetInit] = useInit(getTodos);
+
+  const { name } =
+    folders !== undefined
+      ? folders.find((o) => o.id === id)
+      : { name: undefined };
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    getTodos();
-  }, []);
+    resetInit();
+  }, [resetInit]);
+  //   }, [getTodos]);
 
   return (
     <>

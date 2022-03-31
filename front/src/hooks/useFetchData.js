@@ -19,7 +19,7 @@ const useFetchData = (props) => {
       }
     };
     fetchData();
-  }, []);
+  }, [props?.endpoint]);
 
   return { data, status };
 };
