@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
 
 /* basic css reset */
 html {
@@ -11,17 +11,18 @@ html {
   box-sizing: inherit;
 }
 
-$background-color: #f8f0df;
-$accent-color: #79b4b7;
-$accent-color-hover: hsl(183, 30%, 40%);
-$danger-color: #d885a3;
-$dark-color: #9d9d9d;
-$light-color: #fefbf3;
-$text-contrast-with-light-color: #3d3d3d;
+// $background-color: #f8f0df;
+// $accent-color: #79b4b7;
+// $accent-color-hover: hsl(183, 30%, 40%);
+// $danger-color: #d885a3;
+// $dark-color: #9d9d9d;
+// $light-color: #fefbf3;
+// $text-contrast-with-light-color: #3d3d3d;
 
 :root {
   --bakground-color: #f8f0df;
   --accent-color: #79b4b7;
+  --accent-color-lighter: hsl(183, 30%, 90%);
   --accent-color-hover: hsl(183, 30%, 40%);
   --danger-color: #d885a3;
   --dark-color: #9d9d9d;
@@ -46,6 +47,7 @@ code {
 #root {
   display: flex;
   justify-content: center;
+  min-height: 100vh;
 }
 
 .App {
@@ -58,7 +60,8 @@ code {
   }
 
   .add-new-item {
-    --add-new-item-padding-horizontal: 3em;
+    --padding-horizontal: 3em;
+    --margin-bottom: 1.3em;
 
     --fields-padding-vertical: 0.45em;
     --fields-padding-horizontal: 0.8em;
@@ -71,8 +74,9 @@ code {
     align-items: stretch;
     justify-content: center;
     width: 100%;
-    padding-left: var(--add-new-item-padding-horizontal);
-    padding-right: var(--add-new-item-padding-horizontal);
+    padding-left: var(--padding-horizontal);
+    padding-right: var(--padding-horizontal);
+    margin-bottom: var(--margin-bottom);
 
     .fields {
       display: flex;
@@ -89,7 +93,6 @@ code {
         border: 0;
         padding-left: var(--fields-padding-horizontal);
         padding-right: var(--fields-padding-horizontal);
-        margin-bottom: var(--fields-margin-bottom);
         border-radius: var(--fields-border-radius);
         font-family: "Source Sans Pro", sans-serif;
         font-size: var(--fields-font-size);
@@ -130,13 +133,16 @@ code {
         display: flex;
         align-items: center;
         justify-content: center;
+
+        transition: all ease 0.2s;
+
         i {
           padding: 0;
           line-height: var(--btn-line-height);
         }
 
         &:hover {
-          background-color: $accent-color-hover;
+          background-color: var(--accent-color-hover);
           cursor: pointer;
         }
       }
@@ -144,26 +150,51 @@ code {
   }
 }
 
-.change-adding {
-  --margin-top: 0.25em;
-  margin-top: var(--margin-top);
-  &:hover {
-    cursor: pointer;
-  }
-}
-
 .folder-list {
-  --min-height: 50vh;
-
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding: 0;
 
   // background-color: red;
   width: 100%;
   height: 100%;
-  min-height: var(--min-height);
+
+  .folder-item {
+    --border-width: 1px;
+    --padding-horizontal: 2em;
+    --height: 4em;
+    --folder-name-font-size: 1.3em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    height: var(--height);
+    background-color: var(--light-color);
+    border: var(--border-width) solid var(--dark-color);
+    padding-left: var(--padding-horizontal);
+    padding-right: var(--padding-horizontal);
+    font-family: "Source Sans Pro", sans-serif;
+    transition: all ease 0.1s;
+    h2 {
+      font-size: var(--folder-name-font-size);
+      font-weight: 600;
+      margin: 0;
+      user-select: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &:hover {
+      background-color: var(--accent-color-lighter);
+      cursor: pointer;
+    }
+  }
 }
 
 .todolist {
@@ -196,22 +227,17 @@ code {
   .App {
     max-width: 768px;
     .add-new-item {
-      --add-new-item-padding-horizontal: 0;
+      --padding-horizontal: 0;
 
       height: 2.5em;
       .fields {
         --fields-padding-vertical: 0.3em;
 
-        // height: auto;
         flex-direction: row;
         justify-content: space-between;
         .new-item-field {
-          width: 49%;
-          height: 100%;
-        }
-
-        #new-folder-text {
           width: 100%;
+          height: 100%;
         }
       }
       .add-item-btn-container {
