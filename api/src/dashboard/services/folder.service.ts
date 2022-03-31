@@ -19,6 +19,9 @@ export class FolderService {
   ) {}
 
   create(folder: Folder): Observable<Folder> {
+    if (folder?.name === "") {
+      folder.name = "Untitled Folder"
+    }
     return from(this.folderRepository.save(folder));
   }
 
