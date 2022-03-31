@@ -1,5 +1,4 @@
 import ToDo from "./todo";
-import ToDoFolder from "./todofolder";
 import AddFolder from "./addfolder";
 import FolderList from "./folderlist";
 import FolderItem from "./folderitem";
@@ -9,7 +8,6 @@ import Dashboard from "./dashboard";
 
 export {
   ToDo,
-  ToDoFolder,
   AddFolder,
   FolderList,
   FolderItem,

@@ -9,9 +9,6 @@ export const ToDoProvider = (props) => {
 
   const getFolders = async () => {
     try {
-      // const response = await axios.get(
-      //   `${process.env.REACT_APP_URL_API}/folder`
-      // );
       const response = await axios.get("/folder");
       console.log(response.data);
       setFolders(response.data);

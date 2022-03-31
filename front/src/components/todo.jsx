@@ -7,9 +7,10 @@ todo = {
 
 import { useState } from "react";
 
-const ToDo = ({ completed, text, id }) => {
+const ToDo = ({ completed, body, id }) => {
   const [editing, setEditing] = useState(false);
   const [_completed, setCompleted] = useState(completed);
+  const [newBody, setnewBody] = useState(body);
   const editTextValue = (e) => {
     setEditing(true);
   };
@@ -34,7 +35,7 @@ const ToDo = ({ completed, text, id }) => {
             className="edit-text"
             type="text"
             name="todo-text"
-            value={text}
+            value={newBody}
             autoFocus
           />
           <input type="button" value="Save" />
@@ -42,7 +43,7 @@ const ToDo = ({ completed, text, id }) => {
         </>
       ) : (
         <>
-          <p>{text}</p>{" "}
+          <p>{body}</p>{" "}
           <input type="button" value="Edit" onClick={editTextValue} />
         </>
       )}
