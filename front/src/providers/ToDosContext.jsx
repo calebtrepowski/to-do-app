@@ -1,75 +1,39 @@
-import { useState, createContext } from "react";
-// import { useFetchData } from "../hooks";
-
-// const mock_todos = [
-//   {
-//     id: 3,
-//     completed: true,
-//     text: "Write to candidates",
-//   },
-//   {
-//     id: 4,
-//     completed: false,
-//     text: "Prepare weekly report",
-//   },
-//   {
-//     completed: false,
-//     id: 5,
-//     text: "Buy groceries",
-//   },
-// ];
-const mock_todos_folder = [
-  {
-    id: 1234,
-    name: "Shopping List",
-    items: [
-      {
-        id: 3,
-        completed: true,
-        text: "Ketchup",
-      },
-      {
-        id: 4,
-        completed: false,
-        text: "Tomatoes",
-      },
-      {
-        completed: false,
-        id: 5,
-        text: "Milk",
-      },
-    ],
-  },
-  {
-    id: 5653,
-    name: "Next Lecture",
-    items: [
-      {
-        id: 7,
-        completed: true,
-        text: "Slides",
-      },
-      {
-        id: 8,
-        completed: false,
-        text: "Practical example",
-      },
-    ],
-  },
-];
+import { useState, createContext, useEffect } from "react";
+import axios from "axios";
 
 export const ToDoContext = createContext();
 
 export const ToDoProvider = (props) => {
-  const [todos, setTodos] = useState(mock_todos_folder);
-  // const { data, status } = useFetchData();
+  const [todosCurrentFolder, setTodosCurrentFolder] = useState([]);
+  const [folders, setFolders] = useState([]);
 
-  // useEffect(() => {
-  //   setTodos(data);
-  // });
+  const getFolders = async () => {
+    try {
+      // const response = await axios.get(
+      //   `${process.env.REACT_APP_URL_API}/folder`
+      // );
+      const response = await axios.get("/folder");
+      console.log(response.data);
+      setFolders(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getFolders();
+  }, []);
 
   return (
-    <ToDoContext.Provider value={[todos, setTodos]}>
+    <ToDoContext.Provider
+      value={[
+        todosCurrentFolder,
+        setTodosCurrentFolder,
+        folders,
+        setFolders,
+        getFolders,
+      ]}
+    >
       {props.children}
     </ToDoContext.Provider>
   );
