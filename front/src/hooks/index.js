@@ -1,3 +1,4 @@
 import useFetchData from "./useFetchData";
 import useInit from "./useInit";
-export { useFetchData, useInit };
+import useFetch from "./useFetch";
+export { useFetchData, useInit, useFetch };

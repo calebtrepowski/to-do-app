@@ -5,10 +5,16 @@ import { ToDoContext } from "../providers";
 import ErrorPage from "./errorpage";
 import ToDo from "./todo";
 import { useInit } from "../hooks";
+import { useFetch } from "../hooks";
 
 const Folder = () => {
   let { id } = useParams();
   id = parseInt(id, 10);
+
+  const { data, loading, error } = useFetch(`/todo/fromFolder/${id}`);
+  if (error) {
+    console.log(error);
+  }
 
   const [, , folders] = useContext(ToDoContext);
 
@@ -32,12 +38,13 @@ const Folder = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    resetInit();
-  }, [resetInit]);
-  //   }, [getTodos]);
+    // resetInit();
+  }, []);
+  // }, [resetInit]);
 
   return (
     <>
+    {loading && <div>Loading...</div>}
       {name !== undefined && (
         <div className="App folder-page">
           <div className="back-to-main">

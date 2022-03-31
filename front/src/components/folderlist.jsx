@@ -1,20 +1,32 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { ToDoContext } from "../providers";
 import FolderItem from "./folderitem";
+import { useFetch } from "../hooks";
 
 const FolderList = () => {
-  const [, , folders] = useContext(ToDoContext);
+  const isComponentMounted = useRef(true);
+  const {
+    data: folders,
+    loading,
+    error,
+  } = useFetch("/folder", isComponentMounted, []);
 
   return (
     <div className="folder-list">
-      {folders.length > 0 ? (
+      {loading && <div>Loading data...</div>}
+      {!loading && folders.length > 0 && (
         <>
           {folders.map((folder) => (
             <FolderItem key={folder.id} {...folder} />
           ))}
         </>
-      ) : (
-        <NoFoldersMessage />
+      )}
+      {!loading && folders.length === 0 && <NoFoldersMessage />}
+      {error && (
+        <div>
+          There was an error, here are the details
+          <br /> {error}
+        </div>
       )}
     </div>
   );
