@@ -20,3 +20,5 @@ Features:
 - Edit a TODO text
 - Delete a folder (and its content)
 - Responsive design
+
+Run `install.sh` as 'sudo'. This script will check if nodejs and postgres installation needed, and will install both front and backend dependencies and build them. Target host of backend will be prompted to build frontend, and postgres credentials will be prompted to build backend.
