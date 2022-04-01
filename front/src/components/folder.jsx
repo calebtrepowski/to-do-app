@@ -101,7 +101,7 @@ const Folder = () => {
             {!loading && data.length !== 0 && (
               <>
                 {data.map((todo) => (
-                  <ToDo {...todo} key={todo.id} getData={getData}/>
+                  <ToDo {...todo} key={todo.id} getData={getData} />
                 ))}
               </>
             )}
@@ -121,56 +121,56 @@ const Folder = () => {
 
 const FolderTitle = ({ name, id }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [newName, setNewName] = useState(name);
+  // const [newName, setNewName] = useState(name);
 
-  const getFolderName = () => {};
-  const handleChange = (e) => {
-    setNewName(e.target.value);
-  };
+  // const getFolderName = () => {};
+  // const handleChange = (e) => {
+  //   setNewName(e.target.value);
+  // };
 
-  const handleFocus = (e) => {
-    e.target.select();
-  };
+  // const handleFocus = (e) => {
+  //   e.target.select();
+  // };
 
-  const toggleIsEditing = () => {
-    setIsEditing((prev) => !prev);
-  };
+  // const toggleIsEditing = () => {
+  //   setIsEditing((prev) => !prev);
+  // };
 
   const handleBlur = () => {
     setIsEditing(false);
   };
 
-  const handleFolderNameChanged = async (e) => {
-    setIsEditing(false);
-    e.preventDefault();
-    const requestBody = { name: newName };
-    try {
-      console.log(requestBody);
-      const response = await axios.put(`/folder/${id}`, requestBody);
-      console.log(response);
-      getFolderName();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      // setLoading(false);
-      setNewName("");
-    }
-    // console.log(newName);
-  };
+  // const handleFolderNameChanged = async (e) => {
+  //   setIsEditing(false);
+  //   e.preventDefault();
+  //   const requestBody = { name: newName };
+  //   try {
+  //     console.log(requestBody);
+  //     const response = await axios.put(`/folder/${id}`, requestBody);
+  //     console.log(response);
+  //     getFolderName();
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     // setLoading(false);
+  //     setNewName("");
+  //   }
+  //   // console.log(newName);
+  // };
 
   return (
     <div className="folder-title" onBlur={handleBlur}>
       {!isEditing && (
         <h1>
           {name}&nbsp;&nbsp;
-          <i
+          {/* <i
             className="fa fa-pencil"
             aria-hidden="true"
             onClick={toggleIsEditing}
-          ></i>
+          ></i> */}
         </h1>
       )}
-      {isEditing && (
+      {/* {isEditing && (
         <div className="edit-folder">
           <input
             type="text"
@@ -185,7 +185,7 @@ const FolderTitle = ({ name, id }) => {
             <i className="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

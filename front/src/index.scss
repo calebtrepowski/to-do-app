@@ -544,6 +544,11 @@ h2 {
       background-color: var(--accent-color-hover);
       cursor: pointer;
     }
+    &:disabled {
+      background-color: var(--light-color);
+      color: var(--danger-color);
+      cursor: not-allowed;
+    }
   }
 }
 
