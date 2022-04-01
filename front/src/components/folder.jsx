@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import ErrorPage from "./errorpage";
 import ToDo from "./todo";
 
@@ -12,14 +12,17 @@ const Folder = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const name = "name";
+  const [name, setName] = useState("");
+  const [deleted, setDeleted] = useState(false);
 
   const getData = async () => {
     if (isMounted.current) {
       (async () => {
         try {
           const response = await axios.get(`/todo/fromFolder/${id}`);
+          const response2 = await axios.get("/folder");
+          const currentFolder = response2.data.find((o) => o.id === id);
+          setName(currentFolder.name);
           setData(response.data);
         } catch (err) {
           setError(err);
@@ -28,9 +31,6 @@ const Folder = () => {
         }
       })();
     }
-    return () => {
-      isMounted.current = false;
-    };
   };
 
   useEffect(() => {
@@ -38,6 +38,10 @@ const Folder = () => {
       (async () => {
         try {
           const response = await axios.get(`/todo/fromFolder/${id}`);
+          const response2 = await axios.get("/folder");
+
+          const currentFolder = response2.data.find((o) => o.id === id);
+          setName(currentFolder.name);
           setData(response.data);
         } catch (err) {
           setError(err);
@@ -55,8 +59,21 @@ const Folder = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`/folder/${id}`);
+      console.log(response);
+      // getData();
+      setDeleted(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
+      {" "}
+      {deleted && <Navigate to="/" />}
       {name !== undefined && (
         <div className="App folder-page">
           <div className="back-to-main">
@@ -66,6 +83,7 @@ const Folder = () => {
             <button
               className="delete-folder"
               title="Delete folder and all its content"
+              onClick={handleDelete}
             >
               <i className="fa fa-trash" aria-hidden="true"></i>
             </button>
@@ -83,7 +101,7 @@ const Folder = () => {
             {!loading && data.length !== 0 && (
               <>
                 {data.map((todo) => (
-                  <ToDo {...todo} key={todo.id} />
+                  <ToDo {...todo} key={todo.id} getData={getData}/>
                 ))}
               </>
             )}
@@ -104,6 +122,8 @@ const Folder = () => {
 const FolderTitle = ({ name, id }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(name);
+
+  const getFolderName = () => {};
   const handleChange = (e) => {
     setNewName(e.target.value);
   };
@@ -120,12 +140,21 @@ const FolderTitle = ({ name, id }) => {
     setIsEditing(false);
   };
 
-  const handleSubmit = () => {
-    if (newName === "") {
-      console.error("ERROR!");
-      return;
-    }
+  const handleFolderNameChanged = async (e) => {
     setIsEditing(false);
+    e.preventDefault();
+    const requestBody = { name: newName };
+    try {
+      console.log(requestBody);
+      const response = await axios.put(`/folder/${id}`, requestBody);
+      console.log(response);
+      getFolderName();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // setLoading(false);
+      setNewName("");
+    }
     // console.log(newName);
   };
 
@@ -152,7 +181,7 @@ const FolderTitle = ({ name, id }) => {
             onChange={handleChange}
             autoComplete={"false"}
           />
-          <button onClick={handleSubmit} title="Save">
+          <button onClick={handleFolderNameChanged} title="Save">
             <i className="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
         </div>

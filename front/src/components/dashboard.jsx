@@ -21,9 +21,6 @@ const Dashboard = () => {
         }
       })();
     }
-    return () => {
-      isMounted.current = false;
-    };
   };
   useEffect(() => {
     if (isMounted.current) {

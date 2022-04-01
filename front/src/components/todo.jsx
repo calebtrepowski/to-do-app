@@ -1,13 +1,7 @@
-/*
-todo = {
-  completed: false,
-  id: 5,
-  text: "Buy groceries",
-}; */
-
 import { useState } from "react";
+import axios from "axios";
 
-const ToDo = ({ completed, body, id }) => {
+const ToDo = ({ completed, body, id, getData }) => {
   const [editing, setEditing] = useState(false);
   const [_completed, setCompleted] = useState(completed);
   const [newBody, setnewBody] = useState(body);
@@ -15,9 +9,19 @@ const ToDo = ({ completed, body, id }) => {
     setEditing(true);
   };
 
-  const onCheckChange = (e) => {
-    // console.log(e.target.checked);
+  const onCheckChange = async (e) => {
     setCompleted(e.target.checked);
+    const bodyRequest = { completed: e.target.checked };
+    // console.log(bodyRequest);
+    try {
+      const response = await axios.put(`/todo/${id}`, {
+        completed: e.target.checked,
+      });
+      console.log(response);
+      // getData();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleChange = (e) => {
@@ -27,8 +31,29 @@ const ToDo = ({ completed, body, id }) => {
     setEditing(false);
   };
 
-  const handleSubmit = () => {
-    setEditing(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const bodyRequest = { body: newBody };
+    console.log(bodyRequest);
+    try {
+      const response = await axios.put(`/todo/${id}`, bodyRequest);
+      console.log(response);
+      setEditing(false);
+      // getData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.delete(`/todo/${id}`);
+      // console.log(response);
+      getData();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -51,7 +76,13 @@ const ToDo = ({ completed, body, id }) => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          <button className="edit-todo-btn" onClick={handleSubmit} title="Save">
+          <button
+            className="edit-todo-btn"
+            onClick={() => {
+              setEditing(true);
+            }}
+            title="Save"
+          >
             <i className="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
         </>
@@ -68,7 +99,7 @@ const ToDo = ({ completed, body, id }) => {
         </>
       )}
 
-      <button className="delete-todo">
+      <button className="delete-todo" onClick={handleDelete}>
         <i className="fa fa-trash" aria-hidden="true"></i>
       </button>
     </div>

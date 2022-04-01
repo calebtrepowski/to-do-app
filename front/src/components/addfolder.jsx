@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 
 const AddFolder = ({ getFolders }) => {
   const [newFolderName, setNewFolderName] = useState("");
+  const isMounted = useRef(true);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
     setNewFolderName(event.target.value);
@@ -10,20 +13,18 @@ const AddFolder = ({ getFolders }) => {
 
   const submitItem = async (e) => {
     e.preventDefault();
-    if (newFolderName === "") {
-      console.log("ERROR!");
-      return;
-    }
     const requestBody = { name: newFolderName };
-
-    try {
-      const response = await axios.post("/folder", requestBody);
-      console.log(response);
-      getFolders();
-    } catch (error) {
-      console.error(error);
-    }
-    setNewFolderName("");
+    if (isMounted.current)
+      try {
+        setLoading(true);
+        await axios.post("/folder", requestBody);
+        getFolders();
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+        setNewFolderName("");
+      }
   };
 
   return (
@@ -47,11 +48,19 @@ const AddFolder = ({ getFolders }) => {
           <button
             className="add-item-btn"
             title="Add Folder"
+            disabled={loading}
             onClick={submitItem}
           >
-            <i className="fa fa-plus"></i>
+            <i className={`fa fa-${loading ? "spinner" : "plus"}`}></i>
           </button>
         </div>
+        {error && (
+          <div>
+            Oops! There's an error.
+            <br />
+            {error}
+          </div>
+        )}
       </form>
     </>
   );
