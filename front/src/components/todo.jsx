@@ -11,7 +11,7 @@ const ToDo = ({ completed, body, id, getData }) => {
 
   const onCheckChange = async (e) => {
     setCompleted(e.target.checked);
-    const bodyRequest = { completed: e.target.checked };
+    // const bodyRequest = { completed: e.target.checked };
     // console.log(bodyRequest);
     try {
       const response = await axios.put(`/todo/${id}`, {
@@ -31,24 +31,24 @@ const ToDo = ({ completed, body, id, getData }) => {
     setEditing(false);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const bodyRequest = { body: newBody };
-    console.log(bodyRequest);
-    try {
-      const response = await axios.put(`/todo/${id}`, bodyRequest);
-      console.log(response);
-      setEditing(false);
-      // getData();
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const bodyRequest = { body: newBody };
+  //   console.log(bodyRequest);
+  //   try {
+  //     const response = await axios.put(`/todo/${id}`, bodyRequest);
+  //     console.log(response);
+  //     setEditing(false);
+  //     // getData();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`/todo/${id}`);
+      await axios.delete(`/todo/${id}`);
       // console.log(response);
       getData();
     } catch (err) {
