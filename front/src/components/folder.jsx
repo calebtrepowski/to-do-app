@@ -75,13 +75,13 @@ const Folder = () => {
       {" "}
       {deleted && <Navigate to="/" />}
       {name !== undefined && (
-        <div className="App folder-page">
-          <div className="back-to-main">
-            <Link to="/" className="link">
+        <div className="folder-page full-width">
+          <div className="back-to-main flex flex-cross-center flex-main-between">
+            <Link to="/" className="link no-decoration">
               <i className="fa fa-chevron-left"></i>Back
             </Link>
             <button
-              className="delete-folder"
+              className="delete-folder no-border box-shadow-1 border-radius hover-pointer transition-2 bg-color-danger-hover"
               title="Delete folder and all its content"
               onClick={handleDelete}
             >
@@ -90,7 +90,7 @@ const Folder = () => {
           </div>
           <FolderTitle name={name} id={id} />
           <AddTodo folderId={id} getTodos={getData} />
-          <div className="todo-list">
+          <div className="todo-list flex flex-column flex-cross-stretch">
             {loading && <div>Loading data...</div>}
 
             {!loading && data.length === 0 && (
@@ -159,7 +159,7 @@ const FolderTitle = ({ name, id }) => {
   // };
 
   return (
-    <div className="folder-title" onBlur={handleBlur}>
+    <div className="folder-title text-center" onBlur={handleBlur}>
       {!isEditing && (
         <h1>
           {name}&nbsp;&nbsp;
@@ -217,7 +217,7 @@ const AddTodo = ({ folderId, getTodos }) => {
   };
   return (
     <form action="#" className="add-todo">
-      <div className="fields">
+      <div className="fields full-width">
         <input
           type="text"
           value={newTodoBody}
@@ -225,19 +225,19 @@ const AddTodo = ({ folderId, getTodos }) => {
           name="newFolderName"
           id="new-todo-text"
           placeholder="New TODO"
-          className="new-todo-text"
+          className="new-todo-text full-width box-shadow-1 font-source-sans border-radius"
           autoComplete="off"
           autoFocus
           required
         />
       </div>
-      <div className="add-item-btn-container">
+      <div className="add-item-btn-container flex flex-main-end">
         <button
-          className="add-item-btn"
+          className="add-item-btn no-border box-shadow-1 border-radius flex flex-center transition-1 hover-pointer bg-color-accent-hover"
           title="Add TODO"
           onClick={handleSubmit}
         >
-          <i className="fa fa-plus"></i>
+          <i className="fa fa-plus no-padding"></i>
         </button>
       </div>
     </form>

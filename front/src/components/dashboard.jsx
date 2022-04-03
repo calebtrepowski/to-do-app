@@ -42,14 +42,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1
-        className="header-title"
-        onClick={() => {
-          getData();
-        }}
-      >
-        TODOs App
-      </h1>
+      <h1 className="header-title no-select">TODOs App</h1>
       <AddFolder getFolders={getData} />
       <FolderList folders={data} loading={loading} error={error} />
     </>

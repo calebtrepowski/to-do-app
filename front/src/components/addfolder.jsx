@@ -29,8 +29,11 @@ const AddFolder = ({ getFolders }) => {
 
   return (
     <>
-      <form action="#" className="add-new-item">
-        <div className="fields">
+      <form
+        action="#"
+        className="add-new-item flex flex-cross-stretch flex-main-center full-width no-padding-lg"
+      >
+        <div className="fields flex flex-column flex-main-evenly full-width">
           <input
             type="text"
             value={newFolderName}
@@ -38,20 +41,20 @@ const AddFolder = ({ getFolders }) => {
             name="newFolderName"
             id="new-folder-text"
             placeholder="New folder name"
-            className="new-item-field"
+            className="new-item-field box-shadow-1 no-border font-source-sans border-radius"
             autoComplete="off"
             autoFocus
             required
           />
         </div>
-        <div className="add-item-btn-container">
+        <div className="add-item-btn-container flex-cross-item-center full-width flex flex-main-center">
           <button
-            className="add-item-btn"
+            className="add-item-btn bg-color-accent-hover no-border box-shadow-1 full-width flex flex-center hover-pointer border-radius transition-2"
             title="Add Folder"
             disabled={loading}
             onClick={submitItem}
           >
-            <i className={`fa fa-${loading ? "spinner" : "plus"}`}></i>
+            <i className={`fa fa-${loading ? "spinner" : "plus"} no-padding`}></i>
           </button>
         </div>
         {error && (

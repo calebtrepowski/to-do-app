@@ -3,7 +3,7 @@ import axios from "axios";
 
 const ToDo = ({ completed, body, id, getData }) => {
   const [editing, setEditing] = useState(false);
-  
+
   const [_completed, setCompleted] = useState(completed);
   const [newBody, setnewBody] = useState(body);
 
@@ -57,7 +57,7 @@ const ToDo = ({ completed, body, id, getData }) => {
   };
 
   return (
-    <div className="todo">
+    <div className="todo flex flex-cross-center">
       <input
         type="checkbox"
         name="completed"
@@ -68,7 +68,7 @@ const ToDo = ({ completed, body, id, getData }) => {
       {editing ? (
         <>
           <input
-            className="edit-text"
+            className="edit-text full-width font-source-sans"
             type="text"
             name="todo-text"
             value={newBody}
@@ -79,24 +79,24 @@ const ToDo = ({ completed, body, id, getData }) => {
         </>
       ) : (
         <>
-          <p>{`${body}  `}</p>
+          <p className="todo-body full-width font-source-sans">{`${body}  `}</p>
         </>
       )}
 
       <button
-        className={`edit-todo-btn`}
+        className={`todo-btn no-border box-shadow-1 border-radius flex flex-center transition-2 bg-color-accent-hover hover-pointer`}
         onClick={() => {
           setEditing(true);
         }}
         title="Edit"
       >
-        <i className={"fa fa-pencil"} aria-hidden="true"></i>
+        <i className="fa fa-pencil no-padding" aria-hidden="true"></i>
       </button>
-      <button className={`edit-todo-btn`} onClick={handleSubmit} title="Save">
+      <button className={`todo-btn no-border box-shadow-1 border-radius flex flex-center transition-2 bg-color-accent-hover hover-pointer`} onClick={handleSubmit} title="Save">
         <i className={"fa fa-floppy-o"} aria-hidden="true"></i>
       </button>
 
-      <button className="delete-todo" onClick={handleDelete}>
+      <button className="delete-todo flex flex-center transition-2 bg-color-danger-hover hover-pointer" onClick={handleDelete}>
         <i className="fa fa-trash" aria-hidden="true"></i>
       </button>
     </div>
