@@ -96,7 +96,7 @@ const ToDo = ({ completed, body, id, getData }) => {
         <i className={"fa fa-floppy-o"} aria-hidden="true"></i>
       </button>
 
-      <button className="delete-todo flex flex-center transition-2 bg-color-danger-hover hover-pointer" onClick={handleDelete}>
+      <button className="delete-todo flex flex-center transition-2 bg-color-danger-hover hover-pointer no-border box-shadow-1 border-radius" onClick={handleDelete}>
         <i className="fa fa-trash" aria-hidden="true"></i>
       </button>
     </div>
