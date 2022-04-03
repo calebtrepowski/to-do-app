@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import axios from "axios";
 import { useParams, Link, Navigate } from "react-router-dom";
 import ErrorPage from "./errorpage";
@@ -6,7 +6,9 @@ import ToDo from "./todo";
 
 const Folder = () => {
   let { id } = useParams();
-  id = parseInt(id, 10);
+  id = useMemo(() => {
+    return parseInt(id, 10);
+  }, [id]);
 
   const isMounted = useRef(true);
   const [data, setData] = useState([]);
@@ -15,7 +17,7 @@ const Folder = () => {
   const [name, setName] = useState("");
   const [deleted, setDeleted] = useState(false);
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     if (isMounted.current) {
       (async () => {
         try {
@@ -31,33 +33,34 @@ const Folder = () => {
         }
       })();
     }
-  };
+  }, [id]);
 
-  useEffect(() => {
-    if (isMounted.current) {
-      (async () => {
-        try {
-          const response = await axios.get(`/todo/fromFolder/${id}`);
-          const response2 = await axios.get("/folder");
+  // useEffect(() => {
+  //   if (isMounted.current) {
+  //     (async () => {
+  //       try {
+  //         const response = await axios.get(`/todo/fromFolder/${id}`);
+  //         const response2 = await axios.get("/folder");
 
-          const currentFolder = response2.data.find((o) => o.id === id);
-          setName(currentFolder.name);
-          setData(response.data);
-        } catch (err) {
-          setError(err);
-        } finally {
-          setLoading(false);
-        }
-      })();
-    }
-    return () => {
-      isMounted.current = false;
-    };
-  }, [isMounted, id]);
+  //         const currentFolder = response2.data.find((o) => o.id === id);
+  //         setName(currentFolder.name);
+  //         setData(response.data);
+  //       } catch (err) {
+  //         setError(err);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     })();
+  //   }
+  //   return () => {
+  //     isMounted.current = false;
+  //   };
+  // }, [isMounted, id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    getData();
+  }, [getData]);
 
   const handleDelete = async () => {
     try {
