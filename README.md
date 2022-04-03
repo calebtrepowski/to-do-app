@@ -1,6 +1,6 @@
 # to-do-app
 
-To-do Full Stack SPA challenge as part of a job interview.
+To-do Full Stack app challenge as part of a job interview. The frontend is a SPA and the backed is a REST API.
 
 See the [live demo](https://trepowski-todo.netlify.app/)
 
