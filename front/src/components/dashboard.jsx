@@ -23,22 +23,26 @@ const Dashboard = () => {
     }
   };
   useEffect(() => {
-    if (isMounted.current) {
-      (async () => {
-        try {
-          const response = await axios.get("/folder");
-          setData(response.data);
-        } catch (err) {
-          setError(err);
-        } finally {
-          setLoading(false);
-        }
-      })();
-    }
-    return () => {
-      isMounted.current = false;
-    };
-  }, [isMounted]);
+    console.log("getdata");
+    getData();
+  },[]);
+  // useEffect(() => {
+  //   if (isMounted.current) {
+  //     (async () => {
+  //       try {
+  //         const response = await axios.get("/folder");
+  //         setData(response.data);
+  //       } catch (err) {
+  //         setError(err);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     })();
+  //   }
+  //   return () => {
+  //     isMounted.current = false;
+  //   };
+  // }, [isMounted]);
 
   return (
     <>
